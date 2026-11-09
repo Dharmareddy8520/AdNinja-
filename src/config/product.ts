@@ -8,11 +8,23 @@ export const product = {
   name: "AdNinja",
   tagline: "Less clutter. More control.",
   version: null as string | null,
-  supportEmail: null as string | null,
+  supportEmail: "dharmareddy0887@outlook.com" as string | null,
   publisher: null as string | null,
+  developer: {
+    name: "Dharmareddy Pandem",
+    url: "https://www.linkedin.com/in/dharmareddypandem/",
+  },
   browsers: [
     { name: "Google Chrome", status: "unverified", url: null },
-    { name: "Microsoft Edge", status: "unverified", url: null },
-    { name: "Mozilla Firefox", status: "unverified", url: null },
+    {
+      name: "Microsoft Edge",
+      status: "available",
+      url: "https://microsoftedge.microsoft.com/addons/detail/adninja/gcmgpggcaejfonkjkfjllpcbneolmaci",
+    },
+    {
+      name: "Mozilla Firefox",
+      status: "available",
+      url: "https://addons.mozilla.org/en-GB/firefox/addon/adninja/",
+    },
   ] satisfies Browser[],
 };

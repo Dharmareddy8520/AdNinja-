@@ -8,7 +8,9 @@
     "start": "next start",
     "lint": "eslint .",
     "typecheck": "tsc --noEmit",
-    "format:check": "prettier --check ."
+    "format:check": "prettier --check .",
+    "test": "node --test scripts/*.test.mjs",
+    "seo:check": "node scripts/validate-seo.mjs"
   },
   "dependencies": {
     "next": "^15.5.0",
@@ -24,5 +26,8 @@
     "eslint-config-next": "^15.5.0",
     "prettier": "^3.6.0",
     "typescript": "^5.9.0"
+  },
+  "overrides": {
+    "postcss": "8.5.32"
   }
 }

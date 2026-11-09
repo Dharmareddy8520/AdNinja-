@@ -1,40 +1,256 @@
 import Link from "next/link";
-import { product } from "@/config/product";
+import type { Metadata } from "next";
+import { FeatureExplorer } from "@/components/feature-explorer";
+import { ProductStructuredData } from "@/components/product-structured-data";
+import { product, type Browser } from "@/config/product";
+import { pageMetadata } from "@/config/seo";
 
-const features = [
-  ["01", "Network filtering", "Rules can reduce supported ad requests before they load."],
-  ["02", "Protection profiles", "Choose a lighter or stronger filtering mode for your browsing."],
-  ["03", "Page cleanup", "Hide supported on-page clutter after a page loads."],
-  ["04", "Element picker", "Select unwanted page elements for more personal control."],
-  ["05", "Website controls", "Adjust protection when a site needs special handling."],
-  ["06", "Privacy dashboard", "Review available local controls in one place."],
-];
+const browsers: Browser[] = product.browsers;
+
+export const metadata: Metadata = pageMetadata({
+  title: "AdNinja — Free Ad Blocker for Cleaner Browsing",
+  description:
+    "AdNinja helps filter supported ads and trackers, hide unwanted webpage elements, and customize browser protection. Free, local-first, and available for Edge and Firefox.",
+  path: "/",
+});
 
 export default function Home() {
-  return <>
-    <section className="hero"><div className="container hero-grid">
-      <div><p className="eyebrow">BROWSER CONTROL, SIMPLIFIED</p><h1>Browse with fewer <em>distractions.</em></h1>
-        <p className="lead">Meet AdNinja — a browser extension project designed to help filter supported ads, hide unwanted elements, and give you more control over websites.</p>
-        <div className="actions"><Link className="button" href="#get-adninja">Get AdNinja <span aria-hidden="true">↗</span></Link><Link className="text-link" href="/features">Explore features <span aria-hidden="true">→</span></Link></div>
-        <p className="fine-print">Store availability has not yet been verified.</p>
-      </div>
-      <div className="visual" aria-label="Illustration of layered website controls">
-        <div className="visual-top"><span>adninja / overview</span><span>● ● ●</span></div>
-        <div className="visual-body"><div className="visual-badge">A</div><p>YOUR BROWSING, YOUR CALL</p><strong>Make room for what matters.</strong>
-          <div className="visual-bars"><span></span><span></span><span></span></div>
-          <div className="visual-card">A calmer page starts with a choice. <span>✦</span></div>
+  return (
+    <>
+      <ProductStructuredData />
+      <section className="home-hero">
+        <div className="container home-hero-grid">
+          <div className="home-hero-copy">
+            <p className="home-kicker">
+              <span /> A MORE INTENTIONAL WEB
+            </p>
+            <h1>
+              Less noise.
+              <br />
+              <em>More of the web.</em>
+            </h1>
+            <p className="home-lead">
+              AdNinja is a free, local-first browser extension that filters
+              supported ads and trackers, clears on-page clutter, and puts
+              website controls within reach. No account is required.
+            </p>
+            <div className="home-hero-actions">
+              <Link className="button" href="#get-adninja">
+                Check availability <span aria-hidden="true">↗</span>
+              </Link>
+              <Link className="home-secondary-link" href="#explore">
+                Explore the toolkit <span aria-hidden="true">↓</span>
+              </Link>
+            </div>
+            <p className="home-hero-note">
+              Available for Edge and Firefox. Chrome availability is still being
+              verified.
+            </p>
+          </div>
+          <div className="home-hero-scene">
+            <div className="home-scene-glow" />
+            <div className="home-browser" aria-hidden="true">
+              <div className="home-browser-top">
+                <span className="home-browser-dots">
+                  <i />
+                  <i />
+                  <i />
+                </span>
+                <span className="home-address">your-web.page</span>
+                <span>↗</span>
+              </div>
+              <div className="home-browser-body">
+                <div className="home-page-kicker" />
+                <div className="home-page-title" />
+                <div className="home-page-title short" />
+                <div className="home-page-text" />
+                <div className="home-page-text short" />
+                <div className="home-page-image">
+                  <span>THE CONTENT YOU CAME FOR</span>
+                  <strong>Room to focus.</strong>
+                </div>
+              </div>
+            </div>
+            <div className="home-floating-card" aria-hidden="true">
+              <span className="home-floating-icon">✳</span>
+              <span>
+                <strong>AdNinja</strong>
+                <small>Your browsing, your call</small>
+              </span>
+              <span className="home-floating-check">✓</span>
+            </div>
+            <p className="home-scene-caption">
+              Illustrative concept, not an extension screenshot
+            </p>
+          </div>
         </div>
-        <p className="visual-caption">Illustrative graphic · not an extension screenshot</p>
+      </section>
+
+      <div className="home-principles" aria-label="Product approach">
+        <div className="container home-principles-inner">
+          <span>
+            <b>01</b> Filter supported requests
+          </span>
+          <span>
+            <b>02</b> Clear page clutter
+          </span>
+          <span>
+            <b>03</b> Adjust site by site
+          </span>
+        </div>
       </div>
-    </div></section>
-    <section className="section" id="get-adninja"><div className="container">
-      <div className="section-heading"><p className="eyebrow">AVAILABILITY</p><h2>Choose your browser.</h2><p>Official installation links will appear after release details are verified.</p></div>
-      <div className="browser-grid">{product.browsers.map(browser => <article className="browser-card" key={browser.name}><span className="browser-glyph" aria-hidden="true">◎</span><h3>{browser.name}</h3><p>Availability unverified</p><span className="inactive-button" aria-disabled="true">Coming soon</span></article>)}</div>
-    </div></section>
-    <section className="section section-muted"><div className="container"><div className="section-heading"><p className="eyebrow">THE TOOLKIT</p><h2>Control that fits the page.</h2><p>Explore the capabilities described in the product brief. Details require extension review before launch.</p></div>
-      <div className="feature-grid">{features.map(([number,title,description]) => <Link href="/features" className="feature-card" key={number}><span className="feature-number">{number}</span><h3>{title}</h3><p>{description}</p><span className="card-arrow" aria-hidden="true">↗</span></Link>)}</div>
-    </div></section>
-    <section className="section"><div className="container split"><div><p className="eyebrow">HOW IT WORKS</p><h2>Start simple. Adjust as you go.</h2><p>AdNinja is designed to put useful controls close at hand without requiring an account.</p><Link className="text-link" href="/how-it-works">See the guide →</Link></div><ol className="steps"><li><span>01</span> Install when a verified store listing is available.</li><li><span>02</span> Select a protection profile.</li><li><span>03</span> Browse with supported filtering enabled.</li><li><span>04</span> Customize site behavior when needed.</li></ol></div></section>
-    <section className="cta-section"><div className="container"><p className="eyebrow">MORE CONTROL, LESS NOISE</p><h2>Take control of your browsing experience.</h2><div className="actions"><Link className="button button-light" href="#get-adninja">Check availability</Link><Link className="text-link light-link" href="/faq">Read the FAQ →</Link></div></div></section>
-  </>;
+
+      <section className="home-explore" id="explore">
+        <div className="container">
+          <div className="home-section-top">
+            <p className="eyebrow">THE TOOLKIT</p>
+            <span>DESIGNED AROUND YOUR CHOICES</span>
+          </div>
+          <div className="home-section-heading">
+            <h2>
+              Make space for
+              <br />
+              <em>what matters.</em>
+            </h2>
+            <p>
+              Explore ways to filter supported ads, clear page clutter, and
+              customize websites. Coverage varies by browser and site.
+            </p>
+          </div>
+          <FeatureExplorer />
+          <div className="home-explore-footer">
+            <span>
+              Coverage varies by site and browser; some ads may remain.
+            </span>
+            <Link href="/features">
+              See all features <span aria-hidden="true">↗</span>
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      <section className="home-how">
+        <div className="container home-how-grid">
+          <div className="home-how-copy">
+            <p className="eyebrow">HOW IT WORKS</p>
+            <h2>
+              Start simple.
+              <br />
+              <em>Stay in control.</em>
+            </h2>
+            <p>
+              Start with a protection profile, then adjust individual websites
+              when you need to. Settings work locally without an account.
+            </p>
+            <Link className="home-inline-link" href="/how-it-works">
+              See the full guide <span aria-hidden="true">↗</span>
+            </Link>
+          </div>
+          <ol className="home-steps">
+            <li>
+              <span>01</span>
+              <div>
+                <h3>Install from an official listing</h3>
+                <p>
+                  Get AdNinja from its Edge or Firefox store listing. Chrome
+                  availability is still being verified.
+                </p>
+              </div>
+            </li>
+            <li>
+              <span>02</span>
+              <div>
+                <h3>Choose your profile</h3>
+                <p>
+                  Pick Light, Balanced, or Strict protection to suit your needs.
+                </p>
+              </div>
+            </li>
+            <li>
+              <span>03</span>
+              <div>
+                <h3>Fine-tune the page</h3>
+                <p>
+                  Use page cleanup and website controls to suit your browsing.
+                </p>
+              </div>
+            </li>
+          </ol>
+        </div>
+      </section>
+
+      <section className="home-availability" id="get-adninja">
+        <div className="container">
+          <div className="home-section-top">
+            <p className="eyebrow">AVAILABILITY</p>
+            <span>RELEASE STATUS</span>
+          </div>
+          <div className="home-section-heading">
+            <h2>Find your browser.</h2>
+            <p>
+              AdNinja has store links for Microsoft Edge and Firefox. Chrome
+              availability is still being verified.
+            </p>
+          </div>
+          <div className="home-browser-grid">
+            {browsers.map((browser, index) => (
+              <article className="home-browser-card" key={browser.name}>
+                <span className="home-browser-index">0{index + 1} / 03</span>
+                <div className="home-browser-name">
+                  <span className="home-browser-symbol" aria-hidden="true">
+                    ◎
+                  </span>
+                  <h3>{browser.name}</h3>
+                </div>
+                {browser.status === "available" && browser.url ? (
+                  <a
+                    className="home-browser-status home-browser-store-link"
+                    href={browser.url}
+                  >
+                    {browser.name === "Mozilla Firefox"
+                      ? "Get for Firefox"
+                      : browser.name === "Microsoft Edge"
+                        ? "Get for Edge"
+                        : "Visit official listing"}{" "}
+                    <span aria-hidden="true">↗</span>
+                  </a>
+                ) : (
+                  <span className="home-browser-status">
+                    <i />{" "}
+                    {browser.status === "in-review"
+                      ? "Release in review"
+                      : "Availability unverified"}
+                  </span>
+                )}
+              </article>
+            ))}
+          </div>
+          <p className="home-availability-note">
+            Only verified official listings are linked here.
+          </p>
+        </div>
+      </section>
+
+      <section className="home-final">
+        <div className="container home-final-inner">
+          <div>
+            <p className="eyebrow">A CALMER WAY TO BROWSE</p>
+            <h2>Curious about AdNinja?</h2>
+            <p>
+              Read the details, including what is still being reviewed before
+              release.
+            </p>
+          </div>
+          <div className="home-final-links">
+            <Link className="button button-light" href="/features">
+              Explore features <span aria-hidden="true">↗</span>
+            </Link>
+            <Link href="/faq">
+              Read the FAQ <span aria-hidden="true">→</span>
+            </Link>
+          </div>
+        </div>
+      </section>
+    </>
+  );
 }

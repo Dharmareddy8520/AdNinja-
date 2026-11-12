@@ -2,20 +2,20 @@
 
 ## Before a production build
 
-- [ ] Confirm the final HTTPS `SITE_URL` and preferred www/non-www host; no placeholder host.
+- [ ] Confirm `src/config/production-origin.json` still names the intended canonical Workers host.
 - [ ] Confirm the hosting platform serves `/features` and other clean paths from the static export.
 - [ ] Configure HTTP → HTTPS, alternate-host → canonical-host, and trailing-slash redirects at the host.
 - [ ] Review the current Edge and Firefox listings and support contact; keep unverified Chrome and Opera links inactive.
 - [ ] Approve the privacy policy, publisher details, licensing, and screenshots. Keep drafts noindex until resolved.
-- [ ] Set `SEO_INDEXING_ENABLED=true` only for the reviewed production build; keep it false for preview builds.
+- [ ] Use `npm run build:workers` for production; keep preview builds noindex.
 
 ## Automated gates
 
 - [ ] `npm run format:check`
 - [ ] `npm run lint`
 - [ ] `npm run typecheck`
-- [ ] `npm run build`
-- [ ] `npm run seo:check` against the build produced with the same environment values.
+- [ ] `npm run build:workers` (includes production SEO validation)
+- [ ] `npm test` after the build.
 - [ ] `npm audit --audit-level=high` when registry access is available.
 - [ ] Review `git diff --check` and `git status --short`.
 
@@ -28,7 +28,7 @@
 - [ ] Check mobile and desktop layout, keyboard access, visible focus, and the feature explorer.
 - [ ] Measure PageSpeed Insights and real-user Core Web Vitals when data becomes available.
 - [ ] Verify that preview/staging deployments remain noindex and are access-restricted when needed.
-- [ ] Complete Google and Bing setup in `SEARCH-CONSOLE-SETUP.md`; record actual submissions and indexing results.
+- [ ] Google ownership is verified; resubmit the corrected sitemap in Search Console. Complete any remaining Bing setup in `SEARCH-CONSOLE-SETUP.md`.
 
 ## Rollback
 

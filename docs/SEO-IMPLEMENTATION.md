@@ -8,7 +8,7 @@ The current verified store links are centralized in `src/config/product.ts`: Mic
 
 ## Production configuration
 
-`SITE_URL` is the final HTTPS origin only, with the chosen www or non-www host and no path. `SEO_INDEXING_ENABLED=true` must be set **only** in the reviewed production build. These values are build-time inputs because the site is statically exported. See `.env.example`.
+`src/config/production-origin.json` records the current verified Cloudflare Workers origin. `npm run build:workers` passes it as `SITE_URL` and sets `SEO_INDEXING_ENABLED=true` for the static export, then validates the result. `npm run build` remains a preview build when SEO environment variables are unset. See [Cloudflare Workers deployment](CLOUDFLARE-WORKERS-DEPLOYMENT.md) for the exact release commands. These are build-time inputs; Wrangler runtime variables cannot repair an already exported sitemap.
 
 With either setting missing, every page is noindex, `robots.txt` disallows crawling, `sitemap.xml` is valid but empty, and no canonical or absolute social image URLs are emitted. An invalid URL or an indexing-enabled build without a URL fails the build. This prevents a placeholder host from reaching canonical tags or the sitemap.
 
@@ -52,7 +52,7 @@ Marketing routes remain statically rendered. The feature explorer and theme cont
 
 The output validator checks unique titles and descriptions, one H1 per content page, robots directives, canonicals, social tags, sitemap and robots contents, internal links, image alt attributes, JSON-LD syntax, forbidden staging links, and social image dimensions. It inspects exported HTML and does not use browser automation.
 
-Validation passed for the no-domain preview export and for an isolated production-mode build using a reserved `.test` host. The production-mode build confirmed five sitemap URLs, matching canonical and social URLs, allowed robots rules, and parseable homepage JSON-LD. The final local export was rebuilt in preview mode, and the temporary test host is absent from it. The real production-host build and live HTTP responses remain unverified until the publisher supplies the host.
+Validation previously passed for a no-domain preview export and an isolated production-mode build using a reserved `.test` host. On 2026-11-11, the live Worker was found serving an empty sitemap, `Disallow: /`, and `noindex` on all eight content routes. The local `npm run build:workers` export now passes the production validator with five sitemap URLs, matching canonical and social URLs, allowed robots rules, and parseable homepage JSON-LD. The live Worker remains unchanged until the corrected export is deployed.
 
 On 2026-11-08, `npm run format:check`, `npm run lint`, `npm run typecheck`, `npm run build`, `npm run seo:check`, and `git diff --check` passed. The SEO validator also passed against the isolated production-mode build. `npm audit --audit-level=high` passed after the PostCSS patch while reporting six moderate transitive advisories. No unit-test runner or browser automation is configured; no desktop/mobile browser inspection, Lighthouse run, or live deployment test was performed.
 
@@ -60,8 +60,8 @@ The source now pins PostCSS 8.5.32 through an npm override because the installed
 
 ## Remaining publisher actions
 
-1. Provide the final HTTPS production URL and preferred www/non-www host.
-2. Confirm the hosting provider and configure clean-route serving, HTTPS and host redirects, correct 404 status, and production versus preview environment values.
+1. Keep `src/config/production-origin.json` aligned with the current canonical Workers host; update it if a custom domain replaces that host.
+2. Configure the Cloudflare Workers build to run `npm run build:workers` before `wrangler deploy`. Keep preview builds noindex, and verify clean-route serving and 404 status after deployment.
 3. Replace the privacy draft with an approved policy and complete the license review; only then make those pages indexable if appropriate.
 4. Verify final store descriptions, extension screenshots, permissions, and publisher identity against the shipped builds.
 5. Run a real mobile and desktop review plus PageSpeed Insights after deployment. No Lighthouse or field scores are claimed here.

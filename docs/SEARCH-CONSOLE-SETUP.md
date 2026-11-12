@@ -1,6 +1,6 @@
 # Manual search indexing setup
 
-The supplied Google HTML verification token is configured in the root Next.js metadata. Ownership verification, sitemap submission, and indexing requests have not been completed from this repository. Use the final production HTTPS host only after the SEO checklist passes.
+The supplied Google HTML verification token is configured in the root Next.js metadata, and the publisher reports that Google Search Console ownership verification is complete. Sitemap submission and indexing requests have not been completed from this repository. Use the production Workers host after the SEO checklist passes.
 
 ## Google Search Console
 

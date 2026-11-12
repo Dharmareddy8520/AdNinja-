@@ -166,6 +166,14 @@ const sitemapUrls = [...sitemapXml.matchAll(/<loc>([^<]+)<\/loc>/g)].map(
 
 if (production) {
   assert.match(robotsText, /Allow: \//);
+  assert.ok(sitemapUrls.length > 0, "Production sitemap must not be empty.");
+  for (const url of sitemapUrls) {
+    assert.equal(
+      new URL(url).origin,
+      origin,
+      `Sitemap URL uses the wrong origin: ${url}`,
+    );
+  }
   assert.ok(
     robotsText.includes(`Sitemap: ${origin}/sitemap.xml`),
     "Production robots.txt is missing its sitemap URL.",

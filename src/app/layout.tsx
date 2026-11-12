@@ -14,6 +14,9 @@ export const metadata: Metadata = {
   ...(siteUrl ? { metadataBase: siteUrl } : {}),
   robots: { index: indexingEnabled, follow: indexingEnabled },
   icons: { icon: "/adninja-icon.png" },
+  verification: {
+    google: "tCAivcjSoX0gpiMgnvzzJZ2EgfJFL3P2MD9fh-V0m8A",
+  },
 };
 
 export default function RootLayout({
